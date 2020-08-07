@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>StopWatch</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel='stylesheet' href='https://codepen.io/P1N2O/pen/xxbjYqx.css'>
+
+    <style>
+        #body {
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            -webkit-animation: gradient 15s ease infinite;
+                    animation: gradient 15s ease infinite;
+            height: 100vh;
+        }
+
+        @-webkit-keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .me{
+            position: absolute;
+            top: 80%;
+        }
+        .timer{
+            position: absolute;
+            top: 20%;
+        }
+
+        ul{
+            margin: 0;
+            padding: 0;
+        }
+        ul li{
+            list-style-type: none;
+            padding: 10px 0;
+        }
+        .stopwatch{
+            font-size: 10em;
+            letter-spacing: 3px !important;
+            font-family: monospace;
+        }
+        button{
+            border-radius: 5px !important;
+        }
+        button:hover{
+            color:azure;
+            background: black;
+            border: 2px solid white;
+            border-radius: 5px !important;
+        }
+    </style>
+
+</head>
+  <body id="body">
+
+    <div class="container p-5 m-5 text-center timer">
+        <div class="stopwatch">00 : 00 : 00</div>
+        
+        <button onclick="start()">Start</button>
+        <button onclick="pause()">Pause</button>
+        <button onclick="stop()">Stop</button>
+        <button onclick="restart()">Restart</button>
+        <button onclick="lap()">Lap</button>
+        <button onclick="resetLaps()">Reset Lap</button>
+
+        <ul class="laps"></ul>
+    </div> 
+
+    <!-- <div class="container mt-5 pt-5 me">
+        <h5 class="text-center">Produced by @GodswillYhurHighnezz</h5>
+    </div> -->
+
+    <!-- Optional JavaScript -->
+    <script>
+       var ms = 0, s = 0, m = 0;
+       var timer;
+
+       var stopwatchEl = document.querySelector('.stopwatch');
+       var lapsContainer = document.querySelector('.laps');
+
+       function start(){
+           if (!timer){
+                timer = setInterval(run, 10);
+           }
+           
+       }
+
+       function run(){
+           stopwatchEl.textContent = getTimer();
+           ms++;
+           if (ms == 100){
+               ms = 0;
+               s++;
+           }
+           if (s == 60){
+               s = 0;
+               m++;
+           }
+       }
+
+       function pause(){
+           stopTimer();
+       }
+    
+       function stop(){
+           stopTimer();
+           m = 0;
+           s = 0;
+           ms = 0;
+           stopwatchEl.textContent = getTimer();
+       }
+       function stopTimer(){
+            clearInterval(timer);
+            timer = false;
+       }
+       function getTimer(){
+           return (m < 10 ? "0" + m : m) + " : " + (s < 10 ? "0" + s : s) + " : " + (ms < 10 ? "0" + ms : ms);
+       }
+       function restart(){
+           stop();
+           start();
+       }
+       function lap(){
+           if(timer){
+               var li = document.createElement('li');
+               li.innerText = getTimer();
+               lapsContainer.appendChild(li);
+           }
+       }
+       function resetLaps(){
+           lapsContainer.innerHTML = '';
+       }
+    </script>
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </body>
+</html>
